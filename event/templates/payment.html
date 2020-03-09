@@ -1,0 +1,28 @@
+{% extends "register.html" %}
+{% block bill %}
+    <div style="border:1px solid black;">
+        <table style="width:100%;border:solid 10px transparent;">
+            <tr>
+                <th colspan="2" style="text-align:center;background:#cfcfcf;border:solid 10px transparent;padding:5px">Order summary - #{{ event.id }}</th>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td>{{ event.event_date }}</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="border:solid 10px transparent;padding:2px">Items</th>
+            </tr>
+            <tr>
+                <td>Normal Ticket</td>
+                <td>{{ amount }} tickets</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="border:solid 10px transparent;padding:2px">Total</th>
+            </tr>
+            <tr>
+                <td>{{ event.ticket_price }} x {{ amount }}</td>
+                <td>{{ total_price }}</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

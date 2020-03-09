@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>{% if action == "register" %}Register{% else %}Event Payment{% endif %}</h1>
+            <br/><br/>
+            <form method="POST" {% if action == "register" %}action="{% url 'register' %}"{% else %}action="{% url 'payment' event_id=event.id %}"{% endif %}>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ email }}">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="fname">First name</label>
+                        <input type="text" class="form-control" id="fname" placeholder="First name" name="fname" value="{{ fname }}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lname">Last name</label>
+                        <input type="text" class="form-control" id="lname" placeholder="last name" name="lname" value="{{ lname }}">
+                    </div>
+                </div>
+                {% if not user.is_authenticated %}
+                     <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="username" name="username" value="{{ username }}">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" class="form-control" id="password2" placeholder="confirm Password" name="password2">
+                </div>
+                {% endif %}
+
+                {% if action == "register"%}
+                <button type="submit" class="btn btn-primary">Register</button>
+                {% else %}
+                <input type="hidden" class="form-control" id="amount" name="amount" value="{{ amount }}">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary col-12">Credit Card</button>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary col-12">Paypal</button>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary col-12">Promptpay</button>
+                    </div>
+                </div>
+                <input type="hidden" class="form-control" id="amount" placeholder="amount" name="amount" value={{ amount }}>
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-md-4">
+            {% block bill %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .event {
+        background: #efefef;
+        padding: 0;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .event:hover {
+        background: #cecece;
+        padding: 0;
+        border-radius: 5px;
+    }
+    
+    .head {
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    .center {
+        text-align:center;
+        color: #000;
+        min-height: 100px;
+        line-height: 100%;
+    }
+    .center h5{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 50%;
+        height: 30%;
+        margin: auto;
+    }
+</style>
+<div class="row head">
+    <div class="col-12">
+        <h3>Categories</h3>
+    </div>
+</div>
+<div class="row">
+{% for c in categories %}
+    <a class="col-sm-2 mr-2 event" href="{% url 'event' %}?category={{ c.id }}">
+        <div class="center">
+            <h5>{{c.name}}</h5>
+        </div>
+    </a>
+{% endfor %}
+{% if not categories %}
+    <a class="col-sm-12 event" href="#">
+        <div class="center">
+            <h5>Categoriy Not Found</h5>
+        </div>
+    </a>
+{% endif %}
+</div>
+{% endblock %}

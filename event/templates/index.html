@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .event {
+        background: #efefef;
+        padding: 0;
+        border-radius: 5px;
+    }
+    
+    .event:hover {
+        background: #cecece;
+        padding: 0;
+        border-radius: 5px;
+    }
+    
+    .event img {
+        width: 100%;
+        min-height: 180px;
+        border-radius: 5px;
+    }
+    
+    .event p {
+        color: #aeaeae;
+        font-size: 13px;
+        margin: 2px;
+        padding-left: 2%;
+    }
+    
+    .event h6 {
+        margin: 2px;
+        padding-left: 2%;
+        color: #000;
+    }
+    
+    .head {
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    .center {
+        text-align:center;
+        color: #000;
+        min-height: 100px;
+        line-height: 100%;
+    }
+    .center h5{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 50%;
+        height: 30%;
+        margin: auto;
+    }
+</style>
+<div class="row head">
+    <div class="col-10">
+        <h3>Poppular Right Now</h3>
+    </div>
+    <div class="col-2">
+        <a href="{% url 'event' %}">View All</a>
+    </div>
+</div>
+<div class="row">
+    {% for e in events %}
+    <a class="col-sm-2 mr-2 event" href="{% url 'detail' event_id=e.id %}">
+        <div>
+            <img src="/media/{{ e.picture }}">
+            <p>{{ e.event_date }}</p>
+            <h6>{{e.event_name}}</h6>
+            <p>{{ e.location }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    {% if not events %}
+    <a class="col-sm-12 event" href="#">
+        <div class="center">
+            <h5>Event Not Found</h5>
+        </div>
+    </a>
+    {% endif %}
+</div>
+<div class="row head">
+    <div class="col-10">
+        <h3>Categories</h3>
+    </div>
+    <div class="col-2">
+        <a href="{% url 'category' %}">View All</a>
+    </div>
+</div>
+<div class="row">
+{% for c in categories %}
+    <a class="col-sm-2 mr-2 event" href="{% url 'event' %}?category={{ c.id }}">
+        <div class="center">
+            <h5>{{c.name}}</h5>
+        </div>
+    </a>
+{% endfor %}
+{% if not categories %}
+    <a class="col-sm-12 event" href="#">
+        <div class="center">
+            <h5>Categoriy Not Found</h5>
+        </div>
+    </a>
+{% endif %}
+</div>
+{% endblock %}
