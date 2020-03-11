@@ -5,7 +5,7 @@
         background: #efefef;
         padding: 0;
         border-radius: 5px;
-        margin-bottom: 10px:
+        margin-bottom: 10px;
     }
     
     .event:hover {
@@ -54,6 +54,11 @@
         margin: auto;
     }
 </style>
+<div class="row head">
+    <div class="col-12">
+        <h3>{{ header }}</h3>
+    </div>
+</div>
 <div class="row">
     {% for e in events %}
     <a class="col-sm-2 mr-2 event" href="{% url 'detail' event_id=e.id %}">

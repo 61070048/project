@@ -30,12 +30,13 @@
         <h5>Tickets</h5>
         <div class="row" style="margin:10px">
             <h6 class="col-md-4">Normal Ticket {% if error %}<span class="text-danger">({{ error }})</span>{%endif%}</h6>
-            <h6 class="col-md-4">Price: <span id="price">{{ event.ticket_price }}</span> </h6>
-            <form class="col-md-4" method="POST" {% if ticket > 0 %}action="{% url 'detail' event_id=event.id %}"{% endif %}>
+            <h6 class="col-md-2">Amount: <span id="ticket">{{ event.ticket_amount }}</span> </h6>
+            <h6 class="col-md-2">Price: <span id="price">{{ event.ticket_price }}</span> </h6>
+            <form class="col-md-4" method="POST" {% if event.ticket_amount > 0 %}action="{% url 'detail' event_id=event.id %}"{% endif %}>
             {% csrf_token %}
                 <div class="form-row">
-                    <input type="number" class="form-control col-md-3 mr-4" style="text-align:center" id="amount" name="amount" onchange=amountChange() value="{{amount}}" {% if not ticket > 0 %}readonly{% endif %} />
-                    <button type="submit" class="btn btn-primary col-md-6">{% if ticket > 0 %}Buy Ticket{% else %}Sold Out{% endif %}</button>
+                    <input type="number" class="form-control col-md-3 mr-4" style="text-align:center" id="amount" name="amount" onchange=amountChange() value="{{amount}}" {% if not event.ticket_amount > 0 %}readonly{% endif %} />
+                    <button type="submit" class="btn btn-primary col-md-6">{% if event.ticket_amount > 0 %}Buy Ticket{% else %}Sold Out{% endif %}</button>
                 </div>
             </form>
         </div>

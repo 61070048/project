@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .no-pad div{
+        padding: 0
+    }
+    a:hover{
+        background: #76a4d3;
+        color: #004085;
+        text-decoration:none;
+    }
+</style>
+<div class="row">
+    <div class="col-md-5 mr-2">
+        <h5 style="text-align:center;">Profile</h5>
+        <form method="POST" action="{% url 'profile' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ user.email }}">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="fname">First name</label>
+                    <input type="text" class="form-control" id="fname" placeholder="First name" name="fname" value="{{ user.first_name }}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lname">Last name</label>
+                    <input type="text" class="form-control" id="lname" placeholder="Last name" name="lname" value="{{ user.last_name }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Your Profile will change">
+                Edit
+            </button>
+        </form>
+    </div>
+    <div class="col-md-6" style="text-align:center;">
+        <h5>My Ticket</h5>
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-2" mr-2>Ticket id</div>
+            <div class="col-5" mr-2> Event </div>
+            <div class="col-3">Purchased</div>
+        </div>
+        {% for ticket in tickets %}
+            <a class="row alert alert-primary no-pad"  href="{% url 'detail' event_id=ticket.event.id %}" >
+                <div class="col-2" mr-2> #{{ ticket.id }} </div>
+                <div class="col-5" mr-2> {{ ticket.event.event_name }} </div>
+                <div class="col-3"> {{ ticket.purchased_date }} </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
